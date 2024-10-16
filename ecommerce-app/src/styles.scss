@@ -1,0 +1,19 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+$widths: 25, 50, 75, 100, 150;
+$heights: 25, 50, 75, 100, 150;
+
+@each $width in $widths {
+  .w-fixed-#{$width} {
+    width: #{$width}px;
+  }
+}
+
+@each $height in $heights {
+  .h-fixed-#{$height} {
+    height: #{$height}px;
+  }
+}
+
+@import "bootstrap/scss/bootstrap";

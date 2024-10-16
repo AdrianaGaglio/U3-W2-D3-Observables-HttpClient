@@ -1,0 +1,20 @@
+<div *ngIf="product">
+  <div class="card shadow-sm">
+    <img
+      src="{{ product.images[0] }}"
+      class="card-img-top h-fixed-150 object-fit-contain"
+    />
+    <div class="card-body">
+      <h6 class="fs-6">{{ product.title | truncate : 20 }}</h6>
+      <p>{{ product.description | truncate }}</p>
+      <div class="d-flex justify-content-between" (click)="addToCart(product)">
+        <button class="btn btn-outline-success">
+          <i class="fa-solid fa-cart-plus"></i>
+        </button>
+        <button class="btn btn-outline-danger" (click)="like(product)">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

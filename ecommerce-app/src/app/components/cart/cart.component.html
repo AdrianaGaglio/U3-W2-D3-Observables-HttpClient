@@ -1,0 +1,34 @@
+<ng-template #content let-offcanvas>
+  <div class="offcanvas-header">
+    <h6 class="offcanvas-title" id="offcanvas-basic-title">Cart</h6>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="offcanvas.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="nav flex-column">
+      <li *ngFor="let product of cartProducts" class="nav-item">
+        <div>
+          <h6 class="fs-6">{{ product.title }}</h6>
+          {{ product.price | currency : "EUR" }}
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<button
+  class="btn btn-lg btn-outline-primary position-relative"
+  (click)="open(content)"
+>
+  <i class="fa-solid fa-cart-shopping"></i>
+  <span
+    class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger py-1 px-2 fs-7"
+    [innerText]="cartProducts.length"
+  >
+    <span class="visually-hidden">unread messages</span>
+  </span>
+</button>
