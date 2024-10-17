@@ -1,9 +1,9 @@
 <div class="container py-3">
   <div class="row g-3">
     <div class="col-2">
-      <app-filter></app-filter>
+      <app-filter (emitCategory)="filter($event)"></app-filter>
     </div>
-    <div class="col-10 row row-cols-3 g-3 px-3">
+    <div *ngIf="!isSearch" class="col-10 row row-cols-4 g-3 ps-3">
       <div class="col" *ngFor="let product of products">
         <app-single-product [id]="product.id"></app-single-product>
       </div>

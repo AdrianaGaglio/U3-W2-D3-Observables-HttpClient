@@ -1,6 +1,7 @@
 import { ProductsService } from './../../services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { iProduct } from '../../models/iproduct';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorites',
@@ -8,7 +9,7 @@ import { iProduct } from '../../models/iproduct';
   styleUrl: './favorites.component.scss',
 })
 export class FavoritesComponent implements OnInit {
-  constructor(private prodSvc: ProductsService) {}
+  constructor(private prodSvc: ProductsService, private router: Router) {}
 
   products!: iProduct[];
 

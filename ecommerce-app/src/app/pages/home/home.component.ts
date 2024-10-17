@@ -11,11 +11,17 @@ export class HomeComponent implements OnInit {
   constructor(private prodSvc: ProductsService) {}
 
   products!: iProduct[];
+  isSearch: boolean = false;
 
   ngOnInit() {
     this.prodSvc.getProducts().subscribe((products) => {
       this.products = products;
-      console.log(this.products);
     });
+  }
+
+  filter(category: string) {
+    this.prodSvc
+      .getProductsByCategories(category)
+      .subscribe((products: iProduct[]) => (this.products = products));
   }
 }

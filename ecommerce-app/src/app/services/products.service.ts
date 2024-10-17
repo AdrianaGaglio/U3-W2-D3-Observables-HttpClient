@@ -3,7 +3,7 @@ import { iResponse } from './../models/iresponse';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { iProduct } from '../models/iproduct';
-import { BehaviorSubject, filter, map, Observable } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +19,16 @@ export class ProductsService {
   cart$ = new BehaviorSubject<iProduct[]>([]);
   cartArr: iProduct[] = [];
 
-  getProducts() {
+  searchQuery$ = new Subject<string>();
+  queryString!: string;
+
+  getProducts(): Observable<iProduct[]> {
     return this.http
       .get<iResponse>(this.apiUrl)
       .pipe(map((res: iResponse) => <iProduct[]>res.products));
   }
 
-  getProductsById(id: number) {
+  getProductsById(id: number): Observable<iProduct> {
     return this.http.get<iProduct>(`${this.apiUrl}/${id}`);
   }
 
@@ -39,7 +42,20 @@ export class ProductsService {
     this.cart$.next(this.cartArr);
   }
 
-  getCategories() {
-    return this.http.get<iCategory[]>(`${this.apiUrl}/categories`);
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/category-list`);
+  }
+
+  getProductsByCategories(category: string): Observable<iProduct[]> {
+    return this.http
+      .get<iResponse>(`${this.apiUrl}/category/${category}`)
+      .pipe(map((res: iResponse) => <iProduct[]>res.products));
+  }
+
+  searchProduct(): Observable<iProduct> {
+    this.searchQuery$.subscribe((query) => (this.queryString = query));
+    return this.http.get<iProduct>(
+      `${this.apiUrl}/search?q=${this.queryString}`
+    );
   }
 }

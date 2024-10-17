@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { iCategory } from '../../models/icategory';
 
@@ -10,11 +10,17 @@ import { iCategory } from '../../models/icategory';
 export class FilterComponent implements OnInit {
   constructor(private prodSvc: ProductsService) {}
 
-  categories!: iCategory[];
+  @Output() emitCategory = new EventEmitter<string>();
+
+  categories!: string[];
 
   ngOnInit() {
     this.prodSvc
       .getCategories()
-      .subscribe((categories) => (this.categories = categories));
+      .subscribe((categories: string[]) => (this.categories = categories));
+  }
+
+  emit(category: string) {
+    this.emitCategory.emit(category);
   }
 }

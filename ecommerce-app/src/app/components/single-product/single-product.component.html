@@ -1,13 +1,16 @@
 <div *ngIf="product">
   <div class="card shadow-sm">
     <img
-      src="{{ product.images[0] }}"
-      class="card-img-top h-fixed-150 object-fit-contain"
+      src="{{ product.thumbnail }}"
+      class="card-img-top h-fixed-100 object-fit-contain"
     />
     <div class="card-body">
       <h6 class="fs-6">{{ product.title | truncate : 20 }}</h6>
       <p>{{ product.description | truncate }}</p>
-      <div class="d-flex justify-content-between" (click)="addToCart(product)">
+      <div
+        class="d-flex justify-content-end gap-1"
+        (click)="addToCart(product)"
+      >
         <button class="btn btn-outline-success">
           <i class="fa-solid fa-cart-plus"></i>
         </button>
